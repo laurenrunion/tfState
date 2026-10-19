@@ -16,15 +16,17 @@ data "aws_ami" "ubuntu" {
 resource "aws_instance" "app_server" {
   ami           = data.aws_ami.ubuntu.id
   instance_type = var.instance_type
-
+/*
   vpc_security_group_ids = [module.vpc.default_security_group_id] #get via output mechanism so from statefile outputting from module behind scenes
   subnet_id              = module.vpc.private_subnets[0]
-
+*/
 
   tags = {
     Name = var.instance_name
+    Project = "tf"
   }
 }
+/*
 
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
@@ -39,4 +41,4 @@ module "vpc" {
 
   enable_dns_hostnames    = true
 }
-
+*/
