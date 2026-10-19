@@ -1,7 +1,7 @@
 variable "instance_name" {
   description = "Value of the EC2 instance's Name tag."
   type        = string
-  default     = "lauren-learn-tf-var-ci2"
+  default     = "lauren-learn-tf-var-ci3"
 }
 
 variable "instance_type" {
