@@ -1,5 +1,5 @@
 terraform {
-/*
+  /*
   cloud {
     organization = "faithful_mallards_apprentice_wave"
 
@@ -11,9 +11,9 @@ terraform {
   */
 
 
-   backend "s3" {
+  backend "s3" {
     bucket       = "lauren-bootcamp-tfstate"
-    key          = "learn-terraform-aws-lauren/terraform.tfstate"//path of tf inside bucket
+    key          = "learn-terraform-aws-lauren/terraform.tfstate" //path of tf inside bucket
     region       = "us-west-2"
     encrypt      = true
     use_lockfile = true
