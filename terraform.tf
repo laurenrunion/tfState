@@ -13,8 +13,8 @@ terraform {
 
   backend "s3" {
     bucket       = "lauren-bootcamp-tfstate"
-    key          = "learn-terraform-aws-lauren/terraform.tfstate" //path of tf inside bucket
-    region       = "us-west-2"
+    key          = "modules-terraform-aws-lauren/terraform.tfstate" //path of tf inside bucket
+    region       = "us-east-1"
     encrypt      = true
     use_lockfile = true
   }
