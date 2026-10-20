@@ -12,7 +12,7 @@ terraform {
 
 
   backend "s3" {
-    bucket       = "lauren-bootcamp-tfstate"
+    bucket       = "lauren-tfstate-8.1.3"
     key          = "modules-terraform-aws-lauren/terraform.tfstate" //path of tf inside bucket
     region       = "us-east-1"
     encrypt      = true
