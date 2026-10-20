@@ -1,44 +1,33 @@
-provider "aws" {
-  region = "us-west-2"
-}
-
-data "aws_ami" "ubuntu" {
-  most_recent = true
-
-  filter {
-    name   = "name"
-    values = ["ubuntu/images/hvm-ssd-gp3/ubuntu-noble-24.04-amd64-server-*"]
-  }
-
-  owners = ["099720109477"] # Canonical give only ubuntu images. Scoped to one owner ubuntu
-}
-
-resource "aws_instance" "app_server" {
-  ami           = data.aws_ami.ubuntu.id
-  instance_type = var.instance_type
-  /*
-  vpc_security_group_ids = [module.vpc.default_security_group_id] #get via output mechanism so from statefile outputting from module behind scenes
-  subnet_id              = module.vpc.private_subnets[0]
-*/
-
-  tags = {
-    Name    = var.instance_name
-    Project = "tf"
-  }
-}
-/*
-
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
-  version = "5.19.0"
+  version = "5.8.1"
 
-  name = "lauren-example-vpc"
-  cidr = "10.0.0.0/16"
+  name = var.vpc_name
+  cidr = var.vpc_cidr
 
-  azs             = ["us-west-2a", "us-west-2b", "us-west-2c"]
-  private_subnets = ["10.0.1.0/24", "10.0.2.0/24"]
-  public_subnets  = ["10.0.101.0/24"]
+  azs             = var.vpc_azs
+  private_subnets = var.vpc_private_subnets
+  public_subnets  = var.vpc_public_subnets
 
-  enable_dns_hostnames    = true
+  enable_nat_gateway = var.vpc_enable_nat_gateway
+
+  tags = var.vpc_tags
 }
-*/
+
+module "ec2_instance" {
+  source  = "terraform-aws-modules/ec2-instance/aws"
+  version = "5.6.1"
+
+  count = 1
+  name  = "my-ec2-cluster-${count.index}"
+
+  ami                    = "ami-0a1179631ec8933d7" # Amazon Linux 2
+  instance_type          = "t2.micro"
+  vpc_security_group_ids = [module.vpc.default_security_group_id]
+  subnet_id              = module.vpc.private_subnets[0]
+
+  tags = {
+    Terraform   = "true"
+    Environment = "sandbox"
+  }
+}
