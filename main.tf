@@ -1,3 +1,9 @@
+module "website_s3_bucket" {
+  source = "./modules/s3-bucket"
+
+  bucket_name = "lauren-modules-website-bucket"
+}
+
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "5.8.1"
