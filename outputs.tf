@@ -1,5 +1,4 @@
-output "instance_hostname" {
-  description = "Private DNS name of the EC2 instance."
-  #  value       = aws_instance.app_server.private_dns
+output "vpc_azs" {
+  description = "Availability zones used by the VPC."
+  value       = module.vpc.azs
 }
-
