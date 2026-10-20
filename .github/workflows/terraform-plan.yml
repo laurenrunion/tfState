@@ -21,7 +21,7 @@ jobs:
       - uses: aws-actions/configure-aws-credentials@v6
         with:
           role-to-assume: arn:aws:iam::282380326879:role/lauren-tf-githubactions-role
-          aws-region: us-west-2
+          aws-region: us-east-1
 
       - name: Terraform fmt
         run: terraform fmt -check -recursive
