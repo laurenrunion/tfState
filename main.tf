@@ -1,3 +1,11 @@
+module "website_s3_bucket" {
+  source = "./modules/s3-bucket"
+
+  bucket_name = "lauren-modules-website-bucket"
+  #go run the code in this folder and pass in this bucket name
+  #this is just creating an arbitrary bucket with my name
+}
+
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "5.8.1"
